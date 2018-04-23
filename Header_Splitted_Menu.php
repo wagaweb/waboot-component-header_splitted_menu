@@ -5,8 +5,8 @@ Description: An Header with centered logo that splits menu in two parts
 Category: Layout
 Tags: Header
 Version: 1.0.0
-Author: WAGA Team <dev@waga.it>
-Author URI: http://www.waga.it
+Author: Waboot Team <info@waboot.io>
+Author URI: http://www.waboot.io
  */
 
 if(!class_exists("\\Waboot\\Component")){
