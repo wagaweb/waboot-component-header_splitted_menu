@@ -95,7 +95,7 @@ class WabootSplittedNavMenuWalker extends \WBF\components\navwalker\Bootstrap_Na
 		}
 
 		$output .= "</ul>";
-		$output .= "<div class='logonav hidden-sm hidden-xs'><a href='" . get_bloginfo('url') . "'>" . $logo_menu_list . "</a></div>";
+		$output .= "<div class='logonav'><a href='" . get_bloginfo('url') . "'>" . $logo_menu_list . "</a></div>";
 		$output .= "<ul class='nav navbar-nav navbar-split-right'>";
 	}
 }

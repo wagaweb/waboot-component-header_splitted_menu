@@ -4,59 +4,32 @@ Component Name: Header Splitted Menu
 Description: An Header with centered logo that splits menu in two parts
 Category: Layout
 Tags: Header
-Version: 1.0.0
+Version: 1.1
 Author: Waboot Team <info@waboot.io>
 Author URI: http://www.waboot.io
  */
 
-if(!class_exists("\\Waboot\\Component")){
-	require_once get_template_directory().'/inc/Component.php';
-}
+if(!class_exists("\\Waboot\\Component")) return;
 
 require_once( dirname(__FILE__).'/WabootSplittedNavMenuWalker.php');
 
 class Header_Splitted_Menu extends \Waboot\Component{
+
+    var $default_zone = "header";
 
     /**
      * This method will be executed at Wordpress startup (every page load)
      */
     public function setup(){
         parent::setup();
-	    Waboot()->add_component_style('component-header_splitted-style', $this->directory_uri . '/assets/dist/css/headerSplittedMenu.css');
-        //Do stuff...
     }
 
-    /**
-     * This method will be executed on the "wp" action in pages where the component must be loaded
-     */
-    public function run(){
-        parent::run();
-        $display_zone = $this->get_display_zone();
-        $display_priority = $this->get_display_priority();
-	    WabootLayout()->add_zone_action($display_zone,[$this,"display_tpl"],intval($display_priority));
+    public function styles(){
+        parent::styles();
+        //Waboot()->add_component_style('component-header_splitted-style', $this->directory_uri . '/assets/dist/css/headerSplittedMenu.css');
+        Waboot()->add_inline_style('component-header_splitted-style', $this->directory_uri . '/assets/dist/css/headerSplittedMenu.css');
     }
 
-    public function display_tpl(){
-
-        // retrieve the user options
-        $menu_position = (\Waboot\functions\get_option('header_splitted_menu'))
-            ? \Waboot\functions\get_option('header_splitted_menu')
-            : 'main';
-        $split_position = (\Waboot\functions\get_option('header_splitted_position'))
-            ? \Waboot\functions\get_option('header_splitted_position')
-            : '';
-
-        $walker = new WabootSplittedNavMenuWalker( $split_position, $menu_position);
-
-        $menu = new \WBF\components\mvc\HTMLView($this->theme_relative_path."/templates/header_splitted.php");
-        $menu->clean()->display([
-            'walker'    => $walker
-        ]);
-    }
-
-    /**
-     * Register component scripts (called automatically)
-     */
     public function scripts(){
         $additional_margin = (\Waboot\functions\get_option('header_splitted_margin'))
             ? \Waboot\functions\get_option('header_splitted_margin')
@@ -92,32 +65,35 @@ class Header_Splitted_Menu extends \Waboot\Component{
         $am->enqueue();
     }
 
-    /**
-     * Register component styles (called automatically)
-     */
-    public function styles(){
-        //wp_enqueue_style('component-header_splitted-style', $this->directory_uri . '/assets/dist/css/headerSplittedMenu.css');
+    public function run(){
+        parent::run();
+        $display_zone = $this->get_display_zone();
+        $display_priority = $this->get_display_priority();
+        Waboot()->layout->add_zone_action($display_zone,[$this,"display_tpl"],intval($display_priority));
     }
 
-    /**
-     * Register component widgets (called automatically).
-     *
-     * @hooked 'widgets_init'
-     */
-    public function widgets(){
-        //register_widget("sampleWidget");
+    public function display_tpl(){
+        $menu_position = (\Waboot\functions\get_option('header_splitted_menu'))
+            ? \Waboot\functions\get_option('header_splitted_menu')
+            : 'main';
+        $split_position = (\Waboot\functions\get_option('header_splitted_position'))
+            ? \Waboot\functions\get_option('header_splitted_position')
+            : '';
+
+        $walker = new WabootSplittedNavMenuWalker( $split_position, $menu_position);
+
+        $menu = new \WBF\components\mvc\HTMLView($this->theme_relative_path."/templates/header_splitted.php");
+        $menu->clean()->display([
+            'walker'    => $walker
+        ]);
     }
 
-    /**
-     * This is an action callback.
-     *
-     * Here you can use WBF Organizer to set component options
-     */
     public function register_options() {
         parent::register_options();
-
         $orgzr = \WBF\modules\options\Organizer::getInstance();
+
         $orgzr->set_group($this->name."_component");
+
         $orgzr->add_section("header",_x("Header","Theme options section","waboot"));
 
         $orgzr->add([
@@ -158,20 +134,4 @@ class Header_Splitted_Menu extends \Waboot\Component{
         $orgzr->reset_group();
         $orgzr->reset_section();
     }
-
-    public function onActivate(){
-        parent::onActivate();
-        //Do stuff...
-    }
-
-    public function onDeactivate(){
-        parent::onDeactivate();
-        //Do stuff...
-    }
 }
-
-/*
-class sampleWidget extends WP_Widget{
-	...
-}
-*/
