@@ -143,12 +143,11 @@ jQuery(document).ready(function($){
         });
     });
 
-
+    /**
+     * Init Splitted Menu
+     */
     if(wabootHeaderSplitted.split_enabled){
         var wbhsm = new Waboot_HeaderSplittedMenu();
         wbhsm.split();
-        $(window).resize(function() {
-            wbhsm.split();
-        });
     }
 });
