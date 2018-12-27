@@ -4,7 +4,7 @@ Component Name: Header Splitted Menu
 Description: An Header with centered logo that splits menu in two parts
 Category: Layout
 Tags: Header
-Version: 1.1
+Version: 1.1.0
 Author: Waboot Team <info@waboot.io>
 Author URI: http://www.waboot.io
  */
