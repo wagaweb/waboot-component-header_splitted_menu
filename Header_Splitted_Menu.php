@@ -4,7 +4,7 @@ Component Name: Header Splitted Menu
 Description: An Header with centered logo that splits menu in two parts
 Category: Layout
 Tags: Header
-Version: 1.2.0
+Version: 1.3.0
 Author: Waboot Team <info@waboot.io>
 Author URI: http://www.waboot.io
  */
@@ -22,12 +22,11 @@ class Header_Splitted_Menu extends \Waboot\Component{
      */
     public function setup(){
         parent::setup();
+	    Waboot()->add_component_style('component-header_splitted-style', $this->directory_uri . '/assets/dist/css/headerSplittedMenu.css');
     }
 
     public function styles(){
         parent::styles();
-        //Waboot()->add_component_style('component-header_splitted-style', $this->directory_uri . '/assets/dist/css/headerSplittedMenu.css');
-        Waboot()->add_inline_style('component-header_splitted-style', $this->directory_uri . '/assets/dist/css/headerSplittedMenu.css');
     }
 
     public function scripts(){
